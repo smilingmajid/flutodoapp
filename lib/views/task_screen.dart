@@ -145,8 +145,7 @@ class TaskScreen extends StatelessWidget {
 
                         // Completed Section
                         GestureDetector(
-                          onTap: () {
-                          },
+                          onTap: () {},
                           child: Row(
                             children: [
                               Text(
