@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'add_new_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -155,7 +156,14 @@ class ProjectCard extends StatelessWidget {
                     ),
                     IconButton(
                       icon: Icon(Icons.add, color: Colors.white),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddNewTaskScreen(),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
