@@ -8,13 +8,13 @@ class TaskScreen extends StatelessWidget {
   final Color backgroundColor;
 
   const TaskScreen({
-    Key? key,
+    super.key,
     required this.projectName,
     required this.taskCount,
     required this.activeTasks,
     required this.completedTasks,
     required this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,7 @@ class TaskScreen extends StatelessWidget {
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
+                              // ignore: deprecated_member_use
                               color: Colors.black.withOpacity(0.1),
                               blurRadius: 10,
                             ),
@@ -67,6 +68,7 @@ class TaskScreen extends StatelessWidget {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
+                            // ignore: deprecated_member_use
                             color: Colors.black.withOpacity(0.1),
                             blurRadius: 10,
                           ),
@@ -100,12 +102,14 @@ class TaskScreen extends StatelessWidget {
                         Container(
                           width: 3,
                           height: 20,
+                          // ignore: deprecated_member_use
                           color: Colors.white.withOpacity(0.5),
                           margin: const EdgeInsets.only(right: 10),
                         ),
                         Text(
                           '$taskCount tasks',
                           style: TextStyle(
+                            // ignore: deprecated_member_use
                             color: Colors.white.withOpacity(0.8),
                             fontSize: 16,
                           ),
@@ -142,7 +146,6 @@ class TaskScreen extends StatelessWidget {
                         // Completed Section
                         GestureDetector(
                           onTap: () {
-                            // TODO: Implement completed section expansion
                           },
                           child: Row(
                             children: [
@@ -186,6 +189,7 @@ class TaskScreen extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
             ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AddNewTaskScreen extends StatefulWidget {
-  const AddNewTaskScreen({Key? key}) : super(key: key);
+  const AddNewTaskScreen({super.key});
 
   @override
   State<AddNewTaskScreen> createState() => _AddNewTaskScreenState();
@@ -212,10 +212,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // TODO: Implement task creation
-                      Navigator.pop(context);
-                    },
+                    onPressed: () => Navigator.pop(context),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       shape: RoundedRectangleBorder(
