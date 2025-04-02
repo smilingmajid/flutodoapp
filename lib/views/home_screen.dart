@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_new_screen.dart';
+import 'task_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -40,9 +41,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 30,
+                    /*
                     backgroundImage: NetworkImage(
                       'https://example.com/placeholder.jpg', // جایگزین با تصویر واقعی
-                    ),
+                    ),*/
                   ),
                 ],
               ),
@@ -62,6 +64,26 @@ class HomeScreen extends StatelessWidget {
                       subtitle: 'tasks',
                       color: Colors.blue,
                       gradientColors: [Colors.blue, Colors.blue.shade800],
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TaskScreen(
+                              projectName: 'Holidays in Norway',
+                              taskCount: '8/10',
+                              activeTasks: [
+                                'Book flight tickets',
+                                'Reserve hotel rooms',
+                              ],
+                              completedTasks: [
+                                'Research tourist attractions',
+                                'Create travel itinerary',
+                              ],
+                              backgroundColor: Colors.blue,
+                            ),
+                          ),
+                        );
+                      },
                     ),
 
                     // Daily Tasks Card
@@ -71,6 +93,26 @@ class HomeScreen extends StatelessWidget {
                       subtitle: 'tasks',
                       color: Colors.orange,
                       gradientColors: [Colors.orange, Colors.deepOrange],
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TaskScreen(
+                              projectName: 'Daily Tasks',
+                              taskCount: '2/4',
+                              activeTasks: [
+                                'Create a presentation in Keynote',
+                                'Give feedback to the team',
+                              ],
+                              completedTasks: [
+                                'Book the return tickets',
+                                'Check some guided tours',
+                              ],
+                              backgroundColor: Colors.orange,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -89,6 +131,7 @@ class ProjectCard extends StatelessWidget {
   final String subtitle;
   final Color color;
   final List<Color> gradientColors;
+  final VoidCallback? onTap;
 
   const ProjectCard({
     Key? key,
@@ -97,79 +140,83 @@ class ProjectCard extends StatelessWidget {
     required this.subtitle,
     required this.color,
     required this.gradientColors,
+    this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: gradientColors,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: gradientColors,
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                height: 1.2,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
+                ),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      progress,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        progress,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 16,
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          color: Colors.white.withOpacity(0.8),
+                          fontSize: 16,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.more_horiz, color: Colors.white),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.add, color: Colors.white),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AddNewTaskScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.more_horiz, color: Colors.white),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add, color: Colors.white),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AddNewTaskScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
