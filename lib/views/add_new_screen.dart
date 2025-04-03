@@ -38,7 +38,10 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                 closeButtonWidget(context),
                 const SizedBox(height: 30),
                 const Text('New Task',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+                    style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'ClashDisplay')),
                 const SizedBox(height: 30),
                 _buildDateSelection(),
                 const SizedBox(height: 20),
@@ -48,11 +51,11 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                     style: TextStyle(
                         color: Colors.grey,
                         fontSize: 13,
-                        fontWeight: FontWeight.w600)),
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'ClashDisplay')),
                 const SizedBox(height: 15),
                 _buildProjectList(projects),
                 const SizedBox(height: 30),
-
                 Obx(
                   () => showprojectController.showProject.value
                       ? _buildTextField('PROJECT', 'Enter project name',
@@ -60,8 +63,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                       : const SizedBox(),
                 ),
                 const SizedBox(height: 15),
-                _buildTextField(
-                    'TITLE', 'Enter task title', _titleController),
+                _buildTextField('TITLE', 'Enter task title', _titleController),
                 const SizedBox(height: 15),
                 _buildTextField('DESCRIPTION', 'Description (optional)',
                     _descriptionController),
@@ -103,7 +105,8 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
           label,
           style: TextStyle(
               color: isSelected ? Colors.white : Colors.black,
-              fontWeight: FontWeight.w500),
+              fontWeight: FontWeight.w500,
+              fontFamily: 'ClashDisplay'),
         ),
       ),
     );
@@ -195,9 +198,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               Text(
                 label,
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w500,
-                ),
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'ClashDisplay'),
               ),
             ],
           ],
@@ -213,7 +216,10 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
       children: [
         Text(title,
             style: const TextStyle(
-                color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w600)),
+                color: Colors.grey,
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'ClashDisplay')),
         const SizedBox(height: 15),
         TextField(
           controller: controller,
@@ -246,12 +252,11 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               );
               showprojectController.changeShowProject();
               _addprojectController.clear();
-              setState(() {}); 
+              setState(() {});
             }
           } else {
-            
-            if (_titleController.text.isNotEmpty && selectedProject.isNotEmpty) {
-              
+            if (_titleController.text.isNotEmpty &&
+                selectedProject.isNotEmpty) {
               Navigator.pop(context);
             }
           }
@@ -262,12 +267,13 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        child:const Text(
-           'Create Task',
-          style:  TextStyle(
+        child: Text(
+          'Create Task',
+          style: TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w500,
+            fontFamily: 'ClashDisplay',
           ),
         ),
       ),

@@ -93,7 +93,8 @@ class TaskScreen extends StatelessWidget {
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 32,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: 'ClashDisplay',
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -109,9 +110,10 @@ class TaskScreen extends StatelessWidget {
                         Text(
                           '$taskCount tasks',
                           style: TextStyle(
-                            // ignore: deprecated_member_use
                             color: Colors.white.withOpacity(0.8),
                             fontSize: 16,
+                            fontFamily: 'ClashDisplay',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ],
@@ -153,7 +155,8 @@ class TaskScreen extends StatelessWidget {
                                 style: TextStyle(
                                   color: Colors.grey[600],
                                   fontSize: 13,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'ClashDisplay',
                                 ),
                               ),
                               const SizedBox(width: 5),
@@ -231,6 +234,8 @@ class TaskScreen extends StatelessWidget {
               fontSize: 16,
               color: isCompleted ? Colors.grey[400] : Colors.black,
               decoration: isCompleted ? TextDecoration.lineThrough : null,
+              fontFamily: 'ClashDisplay',
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],

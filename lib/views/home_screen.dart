@@ -39,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Hello, Michael',
                         style: TextStyle(
                           fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
+                          fontFamily: 'ClashDisplay',
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -47,7 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Your Projects ($projectCount)',
                         style: const TextStyle(
                           fontSize: 32,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'ClashDisplay',
                         ),
                       ),
                     ],
@@ -69,6 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey,
+                            fontFamily: 'ClashDisplay',
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       )
