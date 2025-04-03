@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class TaskScreen extends StatelessWidget {
   final String projectName;
@@ -31,153 +32,173 @@ class TaskScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Column(
+          child: Stack(
             children: [
-              // Header
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              // ignore: deprecated_member_use
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 10,
-                            ),
-                          ],
-                        ),
-                        child: const Center(
-                          child: Icon(Icons.arrow_back_ios_new, size: 20),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 40,
-                      height: 40,
+              // دایره شفاف بزرگ (اول قرار می‌گیرد تا زیر بقیه المان‌ها باشد)
+              Positioned(
+                top: -50,
+                right: -50,
+                child: ClipOval(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
+                      width: 200,
+                      height: 200,
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            // ignore: deprecated_member_use
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 10,
-                          ),
-                        ],
-                      ),
-                      child: const Center(
-                        child: Icon(Icons.more_horiz, size: 20),
+                        color: Colors.white.withOpacity(0.15),
                       ),
                     ),
-                  ],
-                ),
-              ),
-
-              // Project Title and Task Count
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      projectName,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w600,
-                        fontFamily: 'ClashDisplay',
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Container(
-                          width: 3,
-                          height: 20,
-                          // ignore: deprecated_member_use
-                          color: Colors.white.withOpacity(0.5),
-                          margin: const EdgeInsets.only(right: 10),
-                        ),
-                        Text(
-                          '$taskCount tasks',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                            fontSize: 16,
-                            fontFamily: 'ClashDisplay',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // Tasks Container
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(30)),
                   ),
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              ),
+              // محتوای اصلی روی دایره قرار می‌گیرد
+              Column(
+                children: [
+                  // Header
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Active Tasks
-                        ...activeTasks.map((task) => _buildTaskItem(
-                              task,
-                              isCompleted: false,
-                            )),
-                        const SizedBox(height: 20),
-
-                        // Completed Section
                         GestureDetector(
-                          onTap: () {},
-                          child: Row(
-                            children: [
-                              Text(
-                                'COMPLETED (${completedTasks.length})',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  fontFamily: 'ClashDisplay',
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            width: 40,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 10,
                                 ),
-                              ),
-                              const SizedBox(width: 5),
-                              Icon(
-                                Icons.keyboard_arrow_down,
-                                color: Colors.grey[600],
+                              ],
+                            ),
+                            child: const Center(
+                              child: Icon(Icons.arrow_back_ios_new, size: 20),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 10,
                               ),
                             ],
                           ),
+                          child: const Center(
+                            child: Icon(Icons.more_horiz, size: 20),
+                          ),
                         ),
-                        const SizedBox(height: 10),
-
-                        // Completed Tasks
-                        ...completedTasks.map((task) => _buildTaskItem(
-                              task,
-                              isCompleted: true,
-                            )),
                       ],
                     ),
                   ),
-                ),
+
+                  // Project Title and Task Count
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          projectName,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'ClashDisplay',
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            Container(
+                              width: 3,
+                              height: 20,
+                              color: Colors.white.withOpacity(0.5),
+                              margin: const EdgeInsets.only(right: 10),
+                            ),
+                            Text(
+                              '$taskCount tasks',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 16,
+                                fontFamily: 'ClashDisplay',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // Tasks Container
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(30)),
+                      ),
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Active Tasks
+                            ...activeTasks.map((task) => _buildTaskItem(
+                                  task,
+                                  isCompleted: false,
+                                )),
+                            const SizedBox(height: 20),
+
+                            // Completed Section
+                            GestureDetector(
+                              onTap: () {},
+                              child: Row(
+                                children: [
+                                  Text(
+                                    'COMPLETED (${completedTasks.length})',
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: 'ClashDisplay',
+                                    ),
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.grey[600],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+
+                            // Completed Tasks
+                            ...completedTasks.map((task) => _buildTaskItem(
+                                  task,
+                                  isCompleted: true,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -191,7 +212,6 @@ class TaskScreen extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
-              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
             ),
