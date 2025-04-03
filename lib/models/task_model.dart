@@ -25,5 +25,5 @@ class Task extends HiveObject {
     this.isCompleted = false,
     required this.projectId,
     DateTime? createdAt,
-  }) : this.createdAt = createdAt ?? DateTime.now();
-} 
+  }) : createdAt = createdAt ?? DateTime.now();
+}

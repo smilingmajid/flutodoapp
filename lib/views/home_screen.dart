@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Header section
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: 8),
                       Text(
                         'Your Projects (4)',
                         style: TextStyle(
@@ -41,7 +41,6 @@ class HomeScreen extends StatelessWidget {
                   ),
                   CircleAvatar(
                     radius: 30,
-                  
                   ),
                 ],
               ),
@@ -65,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TaskScreen(
+                            builder: (context) => const TaskScreen(
                               projectName: 'Holidays in Norway',
                               taskCount: '8/10',
                               activeTasks: [
@@ -89,12 +88,12 @@ class HomeScreen extends StatelessWidget {
                       progress: '2/4',
                       subtitle: 'tasks',
                       color: Colors.orange,
-                      gradientColors: [Colors.orange, Colors.deepOrange],
+                      gradientColors: const [Colors.orange, Colors.deepOrange],
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TaskScreen(
+                            builder: (context) => const TaskScreen(
                               projectName: 'Daily Tasks',
                               taskCount: '2/4',
                               activeTasks: [
@@ -121,4 +120,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
