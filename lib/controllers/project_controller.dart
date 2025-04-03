@@ -55,6 +55,7 @@ class ProjectController extends GetxController {
       project.title = newTitle;
     }
     if (newColor != null) {
+      // ignore: deprecated_member_use
       project.colorValue = newColor.value;
     }
     await project.save();

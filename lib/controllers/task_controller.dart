@@ -58,7 +58,9 @@ class TaskController extends GetxController {
     await task.save();
   }
 
+  @override
   void dispose() {
+    super.dispose();
     titleController.dispose();
     descriptionController.dispose();
   }
