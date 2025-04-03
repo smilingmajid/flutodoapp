@@ -2,28 +2,36 @@ import 'package:hive/hive.dart';
 
 part 'task_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 2)
 class Task extends HiveObject {
   @HiveField(0)
   String title;
 
   @HiveField(1)
-  String? description;
+  String projectId;
 
   @HiveField(2)
-  bool isCompleted;
+  String? description;
 
   @HiveField(3)
-  DateTime createdAt;
+  bool isCompleted;
 
   @HiveField(4)
-  String projectId;
+  DateTime? dueDate;
+
+  @HiveField(5)
+  DateTime createdAt;
 
   Task({
     required this.title,
-    this.description,
-    this.isCompleted = false,
     required this.projectId,
+    this.description,
+    this.dueDate,
+    this.isCompleted = false,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
+
+  set dueDateValue(DateTime? value) {
+    dueDate = value;
+  }
 }

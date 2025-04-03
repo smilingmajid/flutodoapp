@@ -1,0 +1,5 @@
+[33mcommit b31394e9527da60bfd61195a533d65d8bd28db29[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: smilingmajid <majid.gha3mi.p@gmail.com>
+Date:   Wed Apr 2 22:04:10 2025 -0800
+
+    Initial commit: Flutter Todo App with MVC architecture and Hive storage

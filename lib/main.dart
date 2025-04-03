@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'blidings/my_blidings.dart';
 import 'views/home_screen.dart';
 import 'services/hive_service.dart';
 
@@ -13,7 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      initialBinding: MyBindings(),
       title: 'Todo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
