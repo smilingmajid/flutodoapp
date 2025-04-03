@@ -246,12 +246,12 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
               );
               showprojectController.changeShowProject();
               _addprojectController.clear();
-              setState(() {}); // برای به‌روزرسانی لیست پروژه‌ها
+              setState(() {}); 
             }
           } else {
-            // اضافه کردن تسک جدید
+            
             if (_titleController.text.isNotEmpty && selectedProject.isNotEmpty) {
-              // اینجا کد اضافه کردن تسک را قرار دهید
+              
               Navigator.pop(context);
             }
           }
@@ -262,9 +262,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        child: Text(
-          showprojectController.showProject.value ? 'Add Project' : 'Create Task',
-          style: const TextStyle(
+        child:const Text(
+           'Create Task',
+          style:  TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w500,
