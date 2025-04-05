@@ -46,6 +46,7 @@ class TaskScreen extends StatelessWidget {
                       height: 200,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        // ignore: deprecated_member_use
                         color: Colors.white.withOpacity(0.15),
                       ),
                     ),
@@ -71,6 +72,7 @@ class TaskScreen extends StatelessWidget {
                               shape: BoxShape.circle,
                               boxShadow: [
                                 BoxShadow(
+                                  // ignore: deprecated_member_use
                                   color: Colors.black.withOpacity(0.1),
                                   blurRadius: 10,
                                 ),
@@ -89,6 +91,7 @@ class TaskScreen extends StatelessWidget {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
+                                // ignore: deprecated_member_use
                                 color: Colors.black.withOpacity(0.1),
                                 blurRadius: 10,
                               ),
@@ -123,12 +126,14 @@ class TaskScreen extends StatelessWidget {
                             Container(
                               width: 3,
                               height: 20,
+                              // ignore: deprecated_member_use
                               color: Colors.white.withOpacity(0.5),
                               margin: const EdgeInsets.only(right: 10),
                             ),
                             Text(
                               '$taskCount tasks',
                               style: TextStyle(
+                                // ignore: deprecated_member_use
                                 color: Colors.white.withOpacity(0.8),
                                 fontSize: 16,
                                 fontFamily: 'ClashDisplay',
@@ -212,6 +217,7 @@ class TaskScreen extends StatelessWidget {
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
+              // ignore: deprecated_member_use
               color: Colors.black.withOpacity(0.1),
               blurRadius: 10,
             ),

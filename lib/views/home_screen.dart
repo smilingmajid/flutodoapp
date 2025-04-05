@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:random_avatar/random_avatar.dart';
 import '../widgets/project_card_widget.dart';
 import '../controllers/project_controller.dart';
 import 'task_screen.dart';
@@ -54,9 +57,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  const CircleAvatar(
+                  Stack(
+  alignment: Alignment.center,
+  children: [
+    ClipOval(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+        child: Container(
+          width: 65,
+          height: 65,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white.withOpacity(0.4),
+          ),
+        ),
+      ),
+    ),
+    Container(
+      width: 45,
+      height: 45,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+      ),
+      child: ClipOval(
+        child: RandomAvatar(
+          'user_avatar',
+          height: 45,
+          width: 45,
+        ),
+      ),
+    ),
+  ],
+),
+                  /*const CircleAvatar(
                     radius: 30,
-                  ),
+                    child: SizedBox(),
+                  ),*/
                 ],
               ),
               const SizedBox(height: 30),
@@ -130,7 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
           );
           setState(() {});
         },
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.black,
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

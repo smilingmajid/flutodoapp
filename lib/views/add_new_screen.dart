@@ -267,7 +267,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
             borderRadius: BorderRadius.circular(15),
           ),
         ),
-        child: Text(
+        child: const Text(
           'Create Task',
           style: TextStyle(
             color: Colors.white,

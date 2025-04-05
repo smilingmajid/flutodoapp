@@ -6,5 +6,7 @@
         "Getx",
         "Roboto",
         "showproject"
-    ]
+    ],
+    "debug.allowBreakpointsEverywhere": true,
+    "testing.alwaysRevealTestOnStateChange": true
 }

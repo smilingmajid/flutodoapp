@@ -49,6 +49,7 @@ class ProjectCardWidget extends StatelessWidget {
                       height: 200,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        // ignore: deprecated_member_use
                         color: Colors.white.withOpacity(0.15),
                       ),
                     ),
@@ -85,6 +86,7 @@ class ProjectCardWidget extends StatelessWidget {
                         Text(
                           subtitle,
                           style: TextStyle(
+                            // ignore: deprecated_member_use
                             color: Colors.white.withOpacity(0.8),
                             fontSize: 16,
                           ),
