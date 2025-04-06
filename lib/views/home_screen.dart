@@ -1,12 +1,13 @@
 import 'dart:ui';
 
+import '../views/newtaskpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:random_avatar/random_avatar.dart';
 import '../widgets/project_card_widget.dart';
 import '../controllers/project_controller.dart';
-import 'task_screen.dart';
-import 'add_new_screen.dart';
+
+import '../views/add_new_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,37 +59,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                   Stack(
-  alignment: Alignment.center,
-  children: [
-    ClipOval(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-        child: Container(
-          width: 65,
-          height: 65,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: Colors.white.withOpacity(0.4),
-          ),
-        ),
-      ),
-    ),
-    Container(
-      width: 45,
-      height: 45,
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-      ),
-      child: ClipOval(
-        child: RandomAvatar(
-          'user_avatar',
-          height: 45,
-          width: 45,
-        ),
-      ),
-    ),
-  ],
-),
+                    alignment: Alignment.center,
+                    children: [
+                      ClipOval(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                          child: Container(
+                            width: 65,
+                            height: 65,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withOpacity(0.4),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 45,
+                        height: 45,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: ClipOval(
+                          child: RandomAvatar(
+                            'user_avatar',
+                            height: 45,
+                            width: 45,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   /*const CircleAvatar(
                     radius: 30,
                     child: SizedBox(),
@@ -122,8 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: projects.length,
                         itemBuilder: (context, index) {
                           final project = projects[index];
-                          final progress = projectController
-                              .getProjectProgress(project.key.toString());
+                          final progress =
+                              projectController.getProjectProgress(project.id);
 
                           return ProjectCardWidget(
                             title: project.title,
@@ -138,11 +139,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => TaskScreen(
+                                  builder: (context) => NewTaskPage(
                                     projectName: project.title,
-                                    taskCount: progress,
-                                    activeTasks: const [],
-                                    completedTasks: const [],
+                                    projectId: project.id,
                                     backgroundColor: project.color,
                                   ),
                                 ),
@@ -156,18 +155,47 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddNewTaskScreen(),
+      floatingActionButton: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 10,
+              spreadRadius: 2,
             ),
-          );
-          setState(() {});
-        },
-        backgroundColor: Colors.black,
-        child: const Icon(Icons.add, color: Colors.white),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(15),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                color: Colors.black.withOpacity(0.8),
+                border: Border.all(
+                  color: Colors.white.withOpacity(0.1),
+                  width: 1,
+                ),
+              ),
+              child: IconButton(
+                icon: const Icon(Icons.add, color: Colors.white),
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AddNewTaskScreen(),
+                    ),
+                  );
+                  setState(() {});
+                },
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

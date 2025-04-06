@@ -3,8 +3,12 @@ import 'dart:ui';
 import '../models/task_model.dart';
 import '../services/hive_service.dart';
 import 'package:random_avatar/random_avatar.dart';
+import 'package:get/get.dart';
+import '../controllers/task_controller.dart';
+import 'package:intl/intl.dart';
+import 'package:iconsax/iconsax.dart';
 
-class NewTaskPage extends StatelessWidget {
+class NewTaskPage extends StatefulWidget {
   final String projectName;
   final String projectId;
   final Color backgroundColor;
@@ -17,8 +21,23 @@ class NewTaskPage extends StatelessWidget {
   });
 
   @override
+  State<NewTaskPage> createState() => _NewTaskPageState();
+}
+
+class _NewTaskPageState extends State<NewTaskPage> {
+  final taskController = Get.find<TaskController>();
+  final TextEditingController _newTaskController = TextEditingController();
+  DateTime? _selectedDueDate;
+
+  @override
+  void dispose() {
+    _newTaskController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final tasks = HiveService.getTasksForProject(projectId);
+    final tasks = taskController.getTasksForProject(widget.projectId);
     final activeTasks = tasks.where((task) => !task.isCompleted).toList();
     final completedTasks = tasks.where((task) => task.isCompleted).toList();
 
@@ -29,8 +48,8 @@ class NewTaskPage extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              backgroundColor,
-              backgroundColor.withBlue(200),
+              widget.backgroundColor,
+              widget.backgroundColor.withBlue(200),
             ],
           ),
         ),
@@ -141,7 +160,7 @@ class NewTaskPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          projectName,
+                          widget.projectName,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 32,
@@ -159,7 +178,7 @@ class NewTaskPage extends StatelessWidget {
                               margin: const EdgeInsets.only(right: 10),
                             ),
                             Text(
-                              '${tasks.length} tasks',
+                              '${tasks.length} تسک',
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.8),
                                 fontSize: 16,
@@ -173,7 +192,66 @@ class NewTaskPage extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 20),
+
+                  // Add new task input
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _newTaskController,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                              hintText: 'افزودن تسک جدید...',
+                              hintStyle: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                                fontFamily: 'ClashDisplay',
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add, color: Colors.white),
+                          onPressed: () {
+                            if (_newTaskController.text.isNotEmpty) {
+                              final task = Task(
+                                title: _newTaskController.text,
+                                projectId: widget.projectId,
+                                dueDate: _selectedDueDate,
+                              );
+                              HiveService.addTask(task);
+                              _newTaskController.clear();
+                              _selectedDueDate = null;
+                              setState(() {});
+                            }
+                          },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.calendar_today,
+                              color: Colors.white),
+                          onPressed: () async {
+                            final date = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                              lastDate:
+                                  DateTime.now().add(const Duration(days: 365)),
+                            );
+                            if (date != null) {
+                              setState(() {
+                                _selectedDueDate = date;
+                              });
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
 
                   // Tasks list
                   Expanded(
@@ -189,7 +267,7 @@ class NewTaskPage extends StatelessWidget {
                         children: [
                           // Active tasks
                           Text(
-                            'IN PROGRESS',
+                            'در حال انجام',
                             style: TextStyle(
                               color: Colors.grey[800],
                               fontSize: 16,
@@ -215,7 +293,7 @@ class NewTaskPage extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  'COMPLETED',
+                                  'تکمیل شده',
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 16,
@@ -256,25 +334,26 @@ class NewTaskPage extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 15),
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: Colors.grey[50],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(15),
-        border: Border.all(color: Colors.grey[200]!),
+        //border: Border.all(color: Colors.grey[200]!),
       ),
       child: Row(
         children: [
           // Checkbox
           GestureDetector(
-            onTap: () {
-              HiveService.toggleTaskCompletion(task);
+            onTap: () async {
+              await taskController.toggleTaskCompletion(task);
+              setState(() {});
             },
             child: Container(
-              width: 24,
-              height: 24,
+              width: 30,
+              height: 30,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: task.isCompleted ? Colors.green : Colors.grey[400]!,
-                  width: 2,
+                  width: 1,
                 ),
                 color: task.isCompleted ? Colors.green : Colors.transparent,
               ),
@@ -284,17 +363,38 @@ class NewTaskPage extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 15),
-          // Task title
+          // Task title and due date
           Expanded(
-            child: Text(
-              task.title,
-              style: TextStyle(
-                fontSize: 16,
-                color: task.isCompleted ? Colors.grey : Colors.black87,
-                decoration:
-                    task.isCompleted ? TextDecoration.lineThrough : null,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  task.title,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: task.isCompleted ? Colors.grey : Colors.black87,
+                    decoration:
+                        task.isCompleted ? TextDecoration.lineThrough : null,
+                  ),
+                ),
+                if (task.dueDate != null)
+                  Text(
+                    DateFormat('MMM dd').format(task.dueDate!),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+              ],
             ),
+          ),
+          // Delete button
+          IconButton(
+            icon: const Icon(Iconsax.trash, color: Colors.red),
+            onPressed: () async {
+              await taskController.deleteTask(task);
+              setState(() {});
+            },
           ),
         ],
       ),

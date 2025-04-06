@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../controllers/show_project_controller.dart';
 import '../controllers/project_controller.dart';
 import '../models/project_model.dart';
+import '../models/task_model.dart';
 import '../widgets/close_button_widget.dart';
 
 class AddNewTaskScreen extends StatefulWidget {
@@ -246,19 +248,9 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
       child: ElevatedButton(
         onPressed: () async {
           if (showprojectController.showProject.value) {
-            if (_addprojectController.text.isNotEmpty) {
-              await projectController.addProject(
-                title: _addprojectController.text,
-              );
-              showprojectController.changeShowProject();
-              _addprojectController.clear();
-              setState(() {});
-            }
+            _createNewProject();
           } else {
-            if (_titleController.text.isNotEmpty &&
-                selectedProject.isNotEmpty) {
-              Navigator.pop(context);
-            }
+            _createNewTask();
           }
         },
         style: ElevatedButton.styleFrom(
@@ -278,5 +270,37 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
         ),
       ),
     );
+  }
+
+  void _createNewProject() async {
+    if (_addprojectController.text.isNotEmpty) {
+      await projectController.addProject(
+        title: _addprojectController.text,
+      );
+      showprojectController.changeShowProject();
+      _addprojectController.clear();
+      setState(() {});
+    }
+  }
+
+  void _createNewTask() async {
+    if (_titleController.text.isNotEmpty && selectedProject.isNotEmpty) {
+      final project = projectController
+          .getAllProjects()
+          .firstWhere((p) => p.title == selectedProject);
+
+      await projectController.addTask(
+        projectId: project.id,
+        title: _titleController.text,
+        description: _descriptionController.text,
+        dueDate: isToday
+            ? DateTime.now()
+            : DateTime.now().add(const Duration(days: 1)),
+      );
+
+      _titleController.clear();
+      _descriptionController.clear();
+      Get.back();
+    }
   }
 }

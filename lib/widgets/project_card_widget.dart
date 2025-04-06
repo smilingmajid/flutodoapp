@@ -96,42 +96,6 @@ class ProjectCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              // دکمه + با پس‌زمینه شیشه‌ای
-              Positioned(
-                bottom: 20, // فاصله از پایین
-                right: 20, // فاصله از راست
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // دایره شیشه‌ای دکمه +
-                    ClipOval(
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white.withOpacity(0.3),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // دکمه +
-                    IconButton(
-                      icon: const Icon(Icons.add, color: Colors.white),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AddNewTaskScreen(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),

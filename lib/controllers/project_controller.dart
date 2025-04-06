@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../models/project_model.dart';
+import '../models/task_model.dart';
 import '../services/hive_service.dart';
 import '../utils/app_colors.dart';
+import 'package:hive/hive.dart';
 
 class ProjectController extends GetxController {
+  final _hiveService = HiveService();
+
   // Get all projects
   List<Project> getAllProjects() {
     return HiveService.getAllProjects();
@@ -59,5 +63,23 @@ class ProjectController extends GetxController {
       project.colorValue = newColor.value;
     }
     await project.save();
+  }
+
+  Future<void> addTask({
+    required String projectId,
+    required String title,
+    String? description,
+    required DateTime dueDate,
+  }) async {
+    final task = Task(
+      title: title,
+      description: description ?? '',
+      projectId: projectId,
+      dueDate: dueDate,
+      isCompleted: false,
+    );
+
+    final box = await Hive.openBox<Task>('tasks');
+    await box.add(task);
   }
 }

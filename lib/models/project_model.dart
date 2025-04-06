@@ -15,6 +15,9 @@ class Project extends HiveObject {
   @HiveField(2)
   DateTime createdAt;
 
+  @HiveField(3)
+  String id;
+
   Project({
     required this.title,
     Color? color,
@@ -22,7 +25,8 @@ class Project extends HiveObject {
   })  : colorValue =
             // ignore: deprecated_member_use
             color?.value ?? AppColors.getRandomProjectColor().value,
-        createdAt = createdAt ?? DateTime.now();
+        createdAt = createdAt ?? DateTime.now(),
+        id = DateTime.now().millisecondsSinceEpoch.toString();
 
   Color get color => Color(colorValue);
 

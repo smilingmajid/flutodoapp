@@ -39,6 +39,8 @@ dependencies:
   path_provider: ^2.1.1
   get: ^4.7.2
   random_avatar: ^0.0.8
+  intl: ^0.18.1
+  iconsax: ^0.0.8
 
 dev_dependencies:
   flutter_test:

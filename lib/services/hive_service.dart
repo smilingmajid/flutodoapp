@@ -1,6 +1,5 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-
 import '../models/task_model.dart';
 import '../models/project_model.dart';
 
@@ -79,5 +78,59 @@ class HiveService {
 
     int completed = tasks.where((task) => task.isCompleted).length;
     return '$completed/${tasks.length}';
+  }
+
+  // گروه‌بندی تسک‌ها بر اساس پروژه
+  static Map<String, List<Task>> getAllTasksGroupedByProject() {
+    final box = Hive.box<Task>(tasksBoxName);
+    final Map<String, List<Task>> groupedTasks = {};
+
+    // دریافت تمام تسک‌ها
+    final allTasks = box.values.toList();
+
+    // گروه‌بندی تسک‌ها بر اساس projectId
+    for (var task in allTasks) {
+      if (!groupedTasks.containsKey(task.projectId)) {
+        groupedTasks[task.projectId] = [];
+      }
+      groupedTasks[task.projectId]!.add(task);
+    }
+
+    return groupedTasks;
+  }
+
+  // دریافت تمام تسک‌ها به همراه اطلاعات پروژه
+  static List<Map<String, dynamic>> getAllTasksWithProjectInfo() {
+    final taskBox = Hive.box<Task>(tasksBoxName);
+    final projectBox = Hive.box<Project>(projectsBoxName);
+    final List<Map<String, dynamic>> tasksWithProjects = [];
+
+    // دریافت تمام تسک‌ها
+    final allTasks = taskBox.values.toList();
+
+    for (var task in allTasks) {
+      // پیدا کردن پروژه مرتبط با تسک
+      final project = projectBox.values.firstWhere(
+        (p) => p.key.toString() == task.projectId,
+        orElse: () => Project(title: 'Unknown Project'),
+      );
+
+      tasksWithProjects.add({
+        'task': task,
+        'project': project,
+      });
+    }
+
+    // مرتب‌سازی بر اساس نام پروژه
+    tasksWithProjects.sort((a, b) => (a['project'] as Project)
+        .title
+        .compareTo((b['project'] as Project).title));
+
+    return tasksWithProjects;
+  }
+
+  Future<void> saveTask(Task task) async {
+    final box = await Hive.openBox<Task>('tasks');
+    await box.add(task);
   }
 }
