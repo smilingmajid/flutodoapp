@@ -272,11 +272,17 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     );
   }
 
+  // ✅ نسخه بهبود یافته
   void _createNewProject() async {
     if (_addprojectController.text.isNotEmpty) {
       await projectController.addProject(
         title: _addprojectController.text,
       );
+
+      final projects = projectController.getAllProjects();
+      final newProject = projects.last;
+      selectedProject = newProject.title;
+
       showprojectController.changeShowProject();
       _addprojectController.clear();
       setState(() {});
