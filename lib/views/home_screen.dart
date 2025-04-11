@@ -20,9 +20,15 @@ class _HomeScreenState extends State<HomeScreen> {
   final projectController = Get.find<ProjectController>();
 
   @override
+  void initState() {
+    super.initState();
+    ever(projectController.projects, (_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final projects = projectController.getAllProjects();
-    final projectCount = projectController.getProjectCount();
+    final projects = projectController.projects;
+    final projectCount = projects.length;
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -90,10 +96,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  /*const CircleAvatar(
-                    radius: 30,
-                    child: SizedBox(),
-                  ),*/
                 ],
               ),
               const SizedBox(height: 30),
@@ -131,6 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             progress: progress,
                             subtitle: 'tasks',
                             color: project.color,
+                            project: project,
                             gradientColors: [
                               project.color,
                               project.color.withBlue(200),
@@ -146,6 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                               ).then((_) => setState(() {}));
+                            },
+                            onDelete: () async {
+                              await projectController.deleteProject(project);
+                              setState(() {});
                             },
                           );
                         },

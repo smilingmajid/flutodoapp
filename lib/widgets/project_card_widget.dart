@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../views/add_new_screen.dart';
 import 'dart:ui';
+import 'package:get/get.dart';
+import '../controllers/project_controller.dart';
+import '../models/project_model.dart';
 
 class ProjectCardWidget extends StatelessWidget {
   final String title;
@@ -9,6 +12,8 @@ class ProjectCardWidget extends StatelessWidget {
   final Color color;
   final List<Color> gradientColors;
   final VoidCallback? onTap;
+  final Project project;
+  final VoidCallback? onDelete;
 
   const ProjectCardWidget({
     super.key,
@@ -17,11 +22,15 @@ class ProjectCardWidget extends StatelessWidget {
     required this.subtitle,
     required this.color,
     required this.gradientColors,
+    required this.project,
     this.onTap,
+    this.onDelete,
   });
 
   @override
   Widget build(BuildContext context) {
+    final projectController = Get.find<ProjectController>();
+
     return GestureDetector(
       onTap: onTap,
       child: ClipRRect(
@@ -94,6 +103,49 @@ class ProjectCardWidget extends StatelessWidget {
                       ],
                     ),
                   ],
+                ),
+              ),
+              // دکمه حذف
+              Positioned(
+                bottom: 20,
+                right: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Delete Project'),
+                        content: const Text(
+                            'Are you sure you want to delete this project?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              projectController.deleteProject(project);
+                              Navigator.pop(context);
+                              onDelete?.call();
+                            },
+                            child: const Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Icon(
+                      Icons.delete,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
                 ),
               ),
             ],
