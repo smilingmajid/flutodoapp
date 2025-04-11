@@ -9,26 +9,12 @@ import '../controllers/project_controller.dart';
 
 import '../views/add_new_screen.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  final projectController = Get.find<ProjectController>();
-
-  @override
-  void initState() {
-    super.initState();
-    ever(projectController.projects, (_) => setState(() {}));
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final projects = projectController.projects;
-    final projectCount = projects.length;
+    final projectController = Get.find<ProjectController>();
 
     return Scaffold(
       backgroundColor: Colors.grey[100],
@@ -54,14 +40,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        'Your Projects ($projectCount)',
-                        style: const TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'ClashDisplay',
-                        ),
-                      ),
+                      Obx(() => Text(
+                            'Your Projects (${projectController.projects.length})',
+                            style: const TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'ClashDisplay',
+                            ),
+                          )),
                     ],
                   ),
                   Stack(
@@ -102,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
               // Projects Grid
               Expanded(
-                child: projects.isEmpty
+                child: Obx(() => projectController.projects.isEmpty
                     ? const Center(
                         child: Text(
                           'No projects yet.\nTap + to add a new project.',
@@ -122,9 +108,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           childAspectRatio: 2,
                           mainAxisSpacing: 15,
                         ),
-                        itemCount: projects.length,
+                        itemCount: projectController.projects.length,
                         itemBuilder: (context, index) {
-                          final project = projects[index];
+                          final project = projectController.projects[index];
                           final progress =
                               projectController.getProjectProgress(project.id);
 
@@ -148,15 +134,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     backgroundColor: project.color,
                                   ),
                                 ),
-                              ).then((_) => setState(() {}));
+                              );
                             },
                             onDelete: () async {
                               await projectController.deleteProject(project);
-                              setState(() {});
                             },
                           );
                         },
-                      ),
+                      )),
               ),
             ],
           ),
@@ -197,7 +182,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       builder: (context) => const AddNewTaskScreen(),
                     ),
                   );
-                  setState(() {});
                 },
               ),
             ),

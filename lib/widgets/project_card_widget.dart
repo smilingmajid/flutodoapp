@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../views/add_new_screen.dart';
 import 'dart:ui';
 import 'package:get/get.dart';
 import '../controllers/project_controller.dart';
 import '../models/project_model.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ProjectCardWidget extends StatelessWidget {
   final String title;
@@ -137,11 +137,11 @@ class ProjectCardWidget extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Icon(
-                      Icons.delete,
+                      Iconsax.trash,
                       color: Colors.white,
                       size: 20,
                     ),

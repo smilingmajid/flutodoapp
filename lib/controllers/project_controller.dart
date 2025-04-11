@@ -61,7 +61,8 @@ class ProjectController extends GetxController {
       await HiveService.deleteTask(task);
     }
     // Then delete the project itself
-    await project.delete();
+    final box = await Hive.openBox<Project>('projects');
+    await box.delete(project.key);
     _loadProjects();
   }
 
