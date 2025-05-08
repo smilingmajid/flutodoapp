@@ -7,7 +7,6 @@ import '../utils/app_colors.dart';
 import 'package:hive/hive.dart';
 
 class ProjectController extends GetxController {
-  final _hiveService = HiveService();
   final projects = <Project>[].obs;
 
   @override

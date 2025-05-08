@@ -16,11 +16,11 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final projectController = Get.find<ProjectController>();
-    final _advancedDrawerController = AdvancedDrawerController();
+    final advancedDrawerController = AdvancedDrawerController();
 
     return AdvancedDrawer(
       backdropColor: Colors.grey[900],
-      controller: _advancedDrawerController,
+      controller: advancedDrawerController,
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 300),
       animateChildDecoration: true,
@@ -45,7 +45,9 @@ class HomeScreen extends StatelessWidget {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
+                // ignore: deprecated_member_use
                 Colors.grey[900]!.withOpacity(0.8),
+                // ignore: deprecated_member_use
                 Colors.grey[900]!.withOpacity(0.6),
               ],
             ),
@@ -76,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    _advancedDrawerController.hideDrawer();
+                    advancedDrawerController.hideDrawer();
                   },
                 ),
 
@@ -92,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    _advancedDrawerController.hideDrawer();
+                    advancedDrawerController.hideDrawer();
                   },
                 ),
                 //Telegram
@@ -106,7 +108,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    _advancedDrawerController.hideDrawer();
+                    advancedDrawerController.hideDrawer();
                   },
                 ),
                 ListTile(
@@ -119,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
-                    _advancedDrawerController.hideDrawer();
+                    advancedDrawerController.hideDrawer();
                   },
                 ),
               ],
@@ -134,7 +136,7 @@ class HomeScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             onPressed: () {
-              _advancedDrawerController.showDrawer();
+              advancedDrawerController.showDrawer();
             },
             icon: const Icon(Icons.menu, color: Colors.black),
           ),
@@ -182,6 +184,7 @@ class HomeScreen extends StatelessWidget {
                               height: 65,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
+                                // ignore: deprecated_member_use
                                 color: Colors.white.withOpacity(0.4),
                               ),
                             ),
@@ -273,6 +276,7 @@ class HomeScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.black.withOpacity(0.2),
                 blurRadius: 10,
                 spreadRadius: 2,
@@ -288,8 +292,10 @@ class HomeScreen extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
+                  // ignore: deprecated_member_use
                   color: Colors.black.withOpacity(0.8),
                   border: Border.all(
+                    // ignore: deprecated_member_use
                     color: Colors.white.withOpacity(0.1),
                     width: 1,
                   ),

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import '../models/task_model.dart';
@@ -68,6 +70,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
                       height: 200,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
+                        // ignore: duplicate_ignore
+                        // ignore: deprecated_member_use
                         color: Colors.white.withOpacity(0.15),
                       ),
                     ),
@@ -178,7 +182,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                               margin: const EdgeInsets.only(right: 10),
                             ),
                             Text(
-                              '${tasks.length} تسک',
+                              '${tasks.length} Tasks',
                               style: TextStyle(
                                 color: Colors.white.withOpacity(0.8),
                                 fontSize: 16,
@@ -204,7 +208,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                             controller: _newTaskController,
                             style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
-                              hintText: 'افزودن تسک جدید...',
+                              hintText: 'Add new task...',
                               hintStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.7),
                                 fontFamily: 'ClashDisplay',
@@ -267,7 +271,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                         children: [
                           // Active tasks
                           Text(
-                            'در حال انجام',
+                            'In Progress',
                             style: TextStyle(
                               color: Colors.grey[800],
                               fontSize: 16,
@@ -293,7 +297,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                             Row(
                               children: [
                                 Text(
-                                  'تکمیل شده',
+                                  'Completed',
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 16,

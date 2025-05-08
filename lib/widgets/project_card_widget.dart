@@ -46,7 +46,7 @@ class ProjectCardWidget extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              // دایره بزرگ با افکت بلور در پس‌زمینه
+              // Large circle with blur effect in background
               Positioned(
                 top: -50,
                 right: -50,
@@ -65,7 +65,7 @@ class ProjectCardWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              // محتوای اصلی
+              // Main content
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
@@ -105,7 +105,7 @@ class ProjectCardWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              // دکمه حذف
+              // Delete button
               Positioned(
                 bottom: 20,
                 right: 20,
@@ -137,6 +137,7 @@ class ProjectCardWidget extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
+                      // ignore: deprecated_member_use
                       color: Colors.white.withOpacity(0.3),
                       borderRadius: BorderRadius.circular(10),
                     ),

@@ -18,7 +18,7 @@ class TaskStatsPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
-          'آمار تسک‌ها',
+          'Task Statistics',
           style: TextStyle(
             fontFamily: 'ClashDisplay',
             fontWeight: FontWeight.w600,
@@ -35,11 +35,11 @@ class TaskStatsPage extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: [
-          // آمار کلی
+          // Overall Statistics
           _buildTotalStatsCard(stats),
           const SizedBox(height: 20),
 
-          // لیست پروژه‌ها و تسک‌هایشان
+          // Project list and their tasks
           ...tasksWithProjects.map((item) {
             final project = item['project'] as Project;
             final tasks = item['tasks'] as List<Task>;
@@ -80,7 +80,7 @@ class TaskStatsPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'آمار کلی',
+            'Overall Statistics',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -91,9 +91,9 @@ class TaskStatsPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _buildStatItem('کل تسک‌ها', totalTasks, Colors.blue),
-              _buildStatItem('تکمیل شده', totalCompleted, Colors.green),
-              _buildStatItem('در حال انجام', totalPending, Colors.orange),
+              _buildStatItem('Total Tasks', totalTasks, Colors.blue),
+              _buildStatItem('Completed', totalCompleted, Colors.green),
+              _buildStatItem('Pending', totalPending, Colors.orange),
             ],
           ),
         ],
@@ -107,6 +107,7 @@ class TaskStatsPage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
+            // ignore: deprecated_member_use
             color: color.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
@@ -147,6 +148,7 @@ class TaskStatsPage extends StatelessWidget {
         border: Border.all(color: Colors.grey[200]!),
         boxShadow: [
           BoxShadow(
+            // ignore: deprecated_member_use
             color: Colors.black.withOpacity(0.05),
             blurRadius: 10,
             offset: const Offset(0, 5),
@@ -162,6 +164,7 @@ class TaskStatsPage extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
+                  // ignore: deprecated_member_use
                   color: project.color.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
@@ -184,7 +187,7 @@ class TaskStatsPage extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${projectStats['total']} تسک',
+                      '${projectStats['total']} tasks',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.grey[600],

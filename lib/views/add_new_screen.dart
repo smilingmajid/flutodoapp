@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../controllers/show_project_controller.dart';
 import '../controllers/project_controller.dart';
 import '../models/project_model.dart';
-import '../models/task_model.dart';
+
 import '../widgets/close_button_widget.dart';
 
 class AddNewTaskScreen extends StatefulWidget {
@@ -272,7 +271,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
     );
   }
 
-  // ✅ نسخه بهبود یافته
+  // ✅ Improved version
   void _createNewProject() async {
     if (_addprojectController.text.isNotEmpty) {
       await projectController.addProject(
